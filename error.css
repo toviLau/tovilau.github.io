@@ -1,0 +1,294 @@
+/*主体*/
+body {
+    margin:0
+}
+
+.main {
+    /*margin:.5em;*/
+    min-width:310px;
+}
+
+/*错误图标*/
+.icon-error {
+    width:4em;
+    height:4em;
+    line-height:4em;
+    border:.6em solid #c30;
+    border-radius:50%;
+    font-size:22px;
+    font-weight:bold;
+    text-align:center;
+    color:#930;
+    position:relative;
+    margin:1em auto .5em;
+}
+
+.icon-error:before {
+    content:'';
+    height:.8em;
+    width:100%;
+    position:absolute;
+    display:inline-block;
+    left:0;
+    top:50%;
+    margin-top:-.4em;
+    background-color:rgba(128, 32, 8, .6);
+    transform:rotate(135deg);
+    transform-origin:center;
+}
+
+/*错误码*/
+.err-code {
+    text-align:center;
+    color:#666;
+    font-size:3.4em;
+}
+
+/*错误信息摘要*/
+.err-code-info {
+    text-align:center;
+    color:#666;
+    font-size:1.25em;
+}
+
+/*错误详情信息*/
+.err-code-content {
+    text-align:center;
+    color:#999;
+    font-size:1em;
+    border:1px dashed #ccc;
+    padding:.6em;
+    margin-top:1em;
+}
+
+.err-code-description {
+    background-color:#f3f3f3;
+    padding:1em;
+}
+
+/*按钮*/
+.button-warp {
+    text-align:center;
+    margin:2em auto 1em;
+}
+
+.buttons {
+    display:inline-block;
+    font-size:14px;
+    padding:5px 10px;
+    margin:1em .5em 0;
+    /*cursor:no-drop;*/
+    cursor:pointer;
+}
+
+.buttons-default {
+    background-color:#f6f6f6;
+    border:1px solid #e0e0e0;
+    border-radius:4px;
+}
+
+
+/***** 电脑 *****/
+.conputer {
+}
+
+/*** 显示器 ***/
+.screen {
+    max-width:480px;
+    max-height:270px;
+    min-width:310px;
+    min-height:175px;
+    width:90vw;
+    height:50.625vw;
+    margin:0 auto;
+    margin-top:4em;
+    padding:.36em;
+    box-sizing:border-box;
+    border:.6em solid #333;
+    border-bottom-width:1.2em;
+    color:#3c3;
+    position:relative;
+    -webkit-touch-callout:none;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+    border-radius:3px;
+    box-shadow:-0.2vw -0.2vw 0.2vw 0.01vw rgba(255, 255, 255, .15) inset;
+    background:linear-gradient(135deg, #666, #333);
+    z-index:3;
+}
+
+.screen:before { /*显示器电源指标灯*/
+    content: '';
+    position: absolute;
+    bottom: -1.2em;
+    right: 2em;
+    height: 1px;
+    width: .5em;
+    background-color: #3f2;
+    box-shadow: 0 0 1vw 0.3vw #3f2;
+    border-radius: .6em;
+}
+
+.screen:after { /*显示器商标*/
+    content:'Tovi Screen';
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:-1.5em;
+    text-align:center;
+    font-size:12px;
+    color:#999;
+}
+
+.screen pre { /*显示器里的代码*/
+    margin:0;
+    position:absolute;
+    width:100%;
+    /*height:100%;*/
+}
+
+.screen pre:before { /*高光高亮*/
+    content: '';
+    position: absolute;
+    left: 12%;
+    top: 26%;
+    width: 0;
+    height: 46%;
+    transform: rotate(18deg);
+    box-shadow: 0 0 7vw 2.6vw rgba(255, 255, 255, 0.95);
+    border-radius: 60%;
+}
+
+.screen pre:after { /*闪烁光标*/
+    content:'';
+    position:absolute;
+    left:5.5em;
+    bottom:1em;
+    height:2px;
+    width:.5em;
+    background-color:#fff;
+    animation:cursor-ainmat 1s infinite;
+    -webkit-animation:cursor-ainmat 1s infinite;
+}
+
+.github {
+    position:absolute;
+    bottom:1em;
+    font-size:12px;
+}
+
+.github a {
+    display:inline-block;
+    margin:0 .15em;
+    /*padding:.25em .5em;*/
+    /*color:#fff;*/
+    /*background-color:#f63;*/
+    color:#ccc;
+    text-decoration:none;
+}
+
+.github a:hover {
+    /*background-color: #f30;*/
+    color:#3c3;
+}
+
+/*** 显示器结束 ***/
+/***** 底座 *****/
+.support {
+    position: relative;
+    text-align: center;
+    width: 42vw;
+    height: 14vw;
+    max-width: 226px;
+    max-height: 76px;
+    min-width: 138px;
+    min-height: 46px;
+    margin: 0 auto;
+}
+
+.pillar {
+    width: 24%;
+    height: 50%;
+    margin: -5% auto;
+    position: relative;
+    z-index: 2;
+}
+
+.pillar:after {
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, #555, #333);
+    transform: perspective(.5em) rotateX(5deg);
+}
+
+.chassis {
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(180deg, #111, #666);
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+}
+
+/***** 底座结束 *****/
+/***** 电脑结束 *****/
+.footer {
+    margin-top:2em;
+}
+
+.copyright {
+    text-align:center;
+    color:#666;
+}
+
+.copyright a {
+    color:#333;
+    text-decoration:none;
+}
+
+.copyright a:hover {
+    text-decoration:underline;
+}
+
+/***** 光标闪烁动画 *****/
+@keyframes cursor-ainmat {
+    0%, 60% {
+        background:transparent;
+    }
+    70%, 90% {
+        background:#fff;
+    }
+}
+
+@-moz-keyframes cursor-ainmat {
+    0%, 60% {
+        background:transparent;
+    }
+    70%, 90% {
+        background:#fff;
+    }
+}
+
+@-webkit-keyframes cursor-ainmat {
+    0%, 60% {
+        background:transparent;
+    }
+    70%, 90% {
+        background:#fff;
+    }
+}
+
+@-o-keyframes cursor-ainmat {
+    0%, 60% {
+        background:transparent;
+    }
+    70%, 90% {
+        background:#fff;
+    }
+}
