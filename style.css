@@ -94,8 +94,8 @@ body {
 
 /*** 显示器 ***/
 .screen {
-    max-width:480px;
-    max-height:270px;
+    max-width:680px;
+    max-height:380px;
     min-width:310px;
     min-height:175px;
     width:90vw;
@@ -120,15 +120,15 @@ body {
 }
 
 .screen:before { /*显示器电源指标灯*/
-    content: '';
-    position: absolute;
-    bottom: -1.2em;
-    right: 2em;
-    height: 1px;
-    width: .5em;
-    background-color: #3f2;
-    box-shadow: 0 0 1vw 0.3vw #3f2;
-    border-radius: .6em;
+    content:'';
+    position:absolute;
+    bottom:-1.12em;
+    right:2em;
+    height: 2px;
+    width:.5em;
+    background-color:#3f2;
+    box-shadow:0 0 1vw 0.3vw #3f2;
+    border-radius:.6em;
 }
 
 .screen:after { /*显示器商标*/
@@ -150,15 +150,15 @@ body {
 }
 
 .screen pre:before { /*高光高亮*/
-    content: '';
-    position: absolute;
-    left: 12%;
-    top: 26%;
-    width: 0;
-    height: 46%;
-    transform: rotate(18deg);
-    box-shadow: 0 0 7vw 2.6vw rgba(255, 255, 255, 0.95);
-    border-radius: 60%;
+    content:'';
+    position:absolute;
+    left:12%;
+    top:26%;
+    width:0;
+    height:46%;
+    transform:rotate(18deg);
+    box-shadow:0 0 7em 2.6em rgba(255, 255, 255, 0.95);
+    border-radius:60%;
 }
 
 .screen pre:after { /*闪烁光标*/
@@ -173,23 +173,32 @@ body {
     -webkit-animation:cursor-ainmat 1s infinite;
 }
 
-.github {
+.ft-links {
+    color:#ccc;
     position:absolute;
     bottom:1em;
     font-size:12px;
 }
 
-.github a {
+.link-item {
     display:inline-block;
-    margin:0 .15em;
+    margin:0 .25em;
+    color:#ccc;
+
+}
+
+div.link-item {
+    margin-left:.5em;
+}
+
+.ft-links a.link-item {
+    text-decoration:none;
     /*padding:.25em .5em;*/
     /*color:#fff;*/
     /*background-color:#f63;*/
-    color:#ccc;
-    text-decoration:none;
 }
 
-.github a:hover {
+.ft-links a.link-item:hover {
     /*background-color: #f30;*/
     color:#3c3;
 }
@@ -197,43 +206,43 @@ body {
 /*** 显示器结束 ***/
 /***** 底座 *****/
 .support {
-    position: relative;
-    text-align: center;
-    width: 42vw;
-    height: 14vw;
-    max-width: 226px;
-    max-height: 76px;
-    min-width: 138px;
-    min-height: 46px;
-    margin: 0 auto;
+    position:relative;
+    text-align:center;
+    width:42vw;
+    height:14vw;
+    max-width:240px;
+    max-height:76px;
+    min-width:138px;
+    min-height:46px;
+    margin:0 auto;
 }
 
 .pillar {
-    width: 24%;
-    height: 50%;
-    margin: -5% auto;
-    position: relative;
-    z-index: 2;
+    width:24%;
+    height:50%;
+    margin:-5% auto;
+    position:relative;
+    z-index:2;
 }
 
 .pillar:after {
     content:'';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(180deg, #555, #333);
-    transform: perspective(.5em) rotateX(5deg);
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background:linear-gradient(180deg, #555, #333);
+    transform:perspective(.5em) rotateX(5deg);
 }
 
 .chassis {
-    width: 100%;
-    height: 40%;
-    background: linear-gradient(180deg, #111, #666);
-    border-radius: 50%;
-    position: relative;
-    z-index: 1;
+    width:100%;
+    height:40%;
+    background:linear-gradient(180deg, #111, #666);
+    border-radius:50%;
+    position:relative;
+    z-index:1;
 }
 
 /***** 底座结束 *****/
