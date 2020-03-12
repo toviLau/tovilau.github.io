@@ -157,7 +157,7 @@ body {
     width:0;
     height:46%;
     transform:rotate(18deg);
-    box-shadow:0 0 7em 2.6em rgba(255, 255, 255, 0.95);
+    box-shadow:0 0 5em 1.8em rgba(255, 255, 255, 0.94);
     border-radius:60%;
 }
 
@@ -183,12 +183,13 @@ body {
 .link-item {
     display:inline-block;
     margin:0 .25em;
-    color:#ccc;
+    color:#9c9;
 
 }
 
 div.link-item {
     margin-left:.5em;
+    color: #ccc
 }
 
 .ft-links a.link-item {
