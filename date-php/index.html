@@ -3,13 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>DEMO</title>
-	<script src="./date.min.js"></script>
+    <script src="./date.min.js"></script>
     <style>
+        html, body, .main{
+            height: 100%;
+        }
+        .main{
+            width:1260px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+        }
+        .date-editer {
+            font-size:22px;
+            line-height:2em;
+            padding: 1.6em 1em;
+            border: 1px solid #ccc;
+            position:relative;
+            margin: 1em auto;
+            width: 100%;
+            box-sizing:border-box;
+        }
+        .date-editer:before{
+            content:'试一试(try)';
+            position:absolute;
+            top: -1em;
+            left: 2em;
+            padding: 0 .5em;
+            background-color: #fff;
+            
+        }
+        
         .table {
-            /*width:800px;*/
+            flex: 1;
+            overflow: auto;
             border-right:1px solid #ccc;
             border-bottom:1px solid #ccc;
-            margin:0 auto;
             font-size:12px;
         }
         
@@ -68,86 +97,205 @@
             text-align:center;
             line-height:3em;
         }
+        
+        .date-input {
+            outline:none;
+            border:none;
+            border-bottom:1px dashed #999;
+            font-size:18px;
+            display: inline;
+            /*margin: 0 .5em;*/
+            /*background:transparent;*/
+            /*opacity: 0;*/
+            /*width: 100px;*/
+        }
+        
+        .date-input:focus {
+            border-bottom:2px solid #666;
+        }
     </style>
 </head>
 <body>
-<table class="table" border="0" cellspacing="0">
-    <thead id="now-time">
-    <tr>
-        <td colspan="4">
-            <div class="clock"><span>当前时间：</span> <span class="date-time">--:--</span></div>
-            <div class="clock"><span>now time：</span> <span class="date-time">--:--</span></div>
-        </td>
-    </tr>
-    </thead>
-    <thead>
-    <tr>
-        <th>参数</th>
-        <th>时间对象</th>
-        <th>代码(<span class="date-object">时间对象</span> <span class="date-params">参数</span>)</th>
-        <th>输出</th>
-    </tr>
-    </thead>
-    <tbody id="tbody">
-    </tbody>
-</table>
+<div class="main">
+    <div class="date-editer" id="date-editer">
+        <div>
+            date(<input type="text" class="date-input" v-model="dater1.tplChars" />,
+            <input type="text" class="date-input" v-model="dater1.dateObj"></span>)
+            <span v-text="fDater1"></span>
+        </div>
+        <div>
+            date(<input type="text" class="date-input" v-model="dater2.tplChars" />,
+            <input type="text" class="date-input" v-model="dater2.dateObj"></span>)
+            <span v-text="fDater2"></span>
+        </div>
+    </div>
+    
+    <table class="table" border="0" cellspacing="0">
+        <thead id="now-time">
+        <tr>
+            <td colspan="4">
+                <div class="clock"><span>当前时间：</span> <span class="date-time">--:--</span></div>
+                <div class="clock"><span>now time：</span> <span class="date-time">--:--</span></div>
+            </td>
+        </tr>
+        </thead>
+        <thead>
+        <tr>
+            <th>模板字符<br/>(Template character)</th>
+            <th>时间对象<br/>(Datetime objec)</th>
+            <th>代码(<span class="date-object">时间对象</span> <span class="date-params">模板字符</span>)<br/>code(<span
+                class="date-object">Datetime objec</span> <span class="date-params">Template character</span>)
+            </th>
+            <th>输出<br/>(output)</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        <template v-for="(item, idx) in chars" :key="idx">
+            <tr v-for="(cItem, cIdx) in daters" :key="cIdx">
+                <td :rowspan="daters.length" v-if="cIdx === 0">
+                    <div class="block date-params" v-text="item"></div>
+                    <!--<input type="text" class="date-input date-params" v-model="item"/>-->
+                </td>
+                <td>
+                    <div class="block date-object" v-text="cItem"></div>
+                    <!--<input type="text" class="date-input date-object" v-model="cItem"/>-->
+                </td>
+                <td>
+                    <div class="block">date("<span class="date-params" v-text="item"></span>", <span class="date-object" v-text="cItem"></span>)
+                    </div>
+                    <div class="block">new Date("<span class="date-object" v-text="cItem"></span>").format("<span class="date-params" v-text="item"></span>")
+                    </div>
+                </td>
+                <td>
+                    <div class="block" v-text="date(item, new Date(new Date(cItem).valueOf() ? cItem : eval(cItem)))"></div>
+                    <div class="block" v-text="new Date(new Date(cItem).valueOf() ? cItem : eval(cItem)).format(item)"></div>
+                </td>
+            </tr>
+        </template>
+        </tbody>
+    </table>
+</div>
 <script>
-  date.editHolidayConf = {
-    '*1213': ['作者生日', `Author's birthday`]
-  }
-  createHtml();
-  function createHtml() {
-    let dom = '';
-    [
-      'Y-m-d fh - lh',
-      'Y-m-d H:i:s lq lQ q Q n',
-      'Y-m-d 第W周 lq lQ q Q n',
-      'Y-m-d 周w lg lG',
-      '公历(阳历)：C(Y)年f月k日 星期K',
-      '农历(阴历)：lC(lc)年lm月ld lt时lk刻',
-      'ly年lf月lj日 生肖lz lS ls',
-      'lj lf ly lc lC lz lZ la lM',
-      'o-m-d H:i:s.v',
-    ].forEach(res => {
-      dom += '<tbody>';
-      const dateObj = [
-        'new Date()',
-        '2019-12-22 20:23:52',
-        '2018-01-01',
-        '2020-01-07',
-        '2020-01-24',
-        '2019-05-12',
-        '2020-05-10',
-        '2020-09-12',
-        '2021-09-13',
-        // '2020-10-01 00:00:00',
-        // '2020-01-07 05:27:36',
-      ];
-      dateObj.forEach((child, idx) => {
-        dom +=
-          // '<tr><td><div class="block">date("' + res + '", ' + child + ')</div></td>' +
-          `<tr>${ idx === 0 ? '<td rowspan="' + dateObj.length + '"><div class="block date-params"> ' + res + '</div></td>' : '' }<td rowspan="1"><div class="block date-object">${ child }</div></td><td><div class="block">date("<span class="date-params">${ res }</span>", <span class="date-object">${ new Date(child).valueOf() ? '"' + child + '"' : child }</span>)</div><div class="block">new Date(<span class="date-object">${ new Date(child).valueOf() ? '"' + child + '"' : child }</span>).format("<span class="date-params">${ res }</span>")</div></td>` +
-          `<td><div class="block"> ${ date(res, new Date(child).valueOf() ? child : eval(child))} </div>`+
-          `<div class="block">${ new Date(new Date(child).valueOf() ? child : eval(child)).format(res) }</div></td></tr>`;
-          // '<td><div class="block">' + date(res, child) + '<br/>' + new Date(child).format(res) + '</div></td></tr>';
-      });
-      dom += '</tbody>';
-
-    });
-    document.getElementById('tbody').innerHTML = dom;
-  }
-
-  const nowClock = document.getElementsByClassName('date-time');
-
-  setInterval(() => {
-    for (let i = 0; i < nowClock.length; i += 1) {
-      nowClock[i].innerHTML = date('Y-m-d H:i:s.v');
-    }
-  }, 1000);
+    // createHtml();
+    // function createHtml() {
+    //   let dom = '';
+    //   [
+    //     'Y-m-d fh - lh',
+    //     'Y-m-d H:i:s lq lQ q Q n',
+    //     'Y-m-d 第W周 lq lQ q Q n',
+    //     'Y-m-d 周w lg lG',
+    //     '公历(阳历)：C(Y)年f月k日 星期K',
+    //     '农历(阴历)：lC(lc)年lm月ld lt时lk刻',
+    //     'ly年lf月lj日 生肖lz lS ls',
+    //     'lj lf ly lc lC lz lZ la lM',
+    //     'o-m-d H:i:s.v',
+    //   ].forEach(res => {
+    //     dom += '<tbody>';
+    //     const dateObj = [
+    //       'new Date()',
+    //       '2019-12-22 20:23:52',
+    //       '2018-01-01',
+    //       '2020-01-07',
+    //       '2020-01-24',
+    //       '2019-05-12',
+    //       '2020-05-10',
+    //       '2020-09-12',
+    //       '2021-09-13',
+    //       // '2020-10-01 00:00:00',
+    //       // '2020-01-07 05:27:36',
+    //     ];
+    //     dateObj.forEach((child, idx) => {
+    //       dom +=
+    //         // '<tr><td><div class="block">date("' + res + '", ' + child + ')</div></td>' +
+    //         `<tr>${ idx === 0 ? '<td rowspan="' + dateObj.length + '"><div class="block date-params"> ' + res + '</div></td>' : '' }<td rowspan="1"><div class="block date-object">${ child }</div></td><td><div class="block">date("<span class="date-params">${ res }</span>", <span class="date-object">${ new Date(child).valueOf() ? '"' + child + '"' : child }</span>)</div><div class="block">new Date(<span class="date-object">${ new Date(child).valueOf() ? '"' + child + '"' : child }</span>).format("<span class="date-params">${ res }</span>")</div></td>` +
+    //         `<td><div class="block"> ${ date(res, new Date(child).valueOf() ? child : eval(child))} </div>`+
+    //         `<div class="block">${ new Date(new Date(child).valueOf() ? child : eval(child)).format(res) }</div></td></tr>`;
+    //         // '<td><div class="block">' + date(res, child) + '<br/>' + new Date(child).format(res) + '</div></td></tr>';
+    //     });
+    //     dom += '</tbody>';
+    //
+    //   });
+    //   document.getElementById('tbody').innerHTML = dom;
+    // }
+    //
+    // const nowClock = document.getElementsByClassName('date-time');
+    //
+    // setInterval(() => {
+    //   for (let i = 0; i < nowClock.length; i += 1) {
+    //     nowClock[i].innerHTML = date('Y-m-d H:i:s.v');
+    //   }
+    // }, 1000);
 
 </script>
+<script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
+<script>
+    new Vue({
+        el: '.main',
+        data: {
+            // date,
+            dater1:{
+                tplChars: 'Y-m-d',
+                dateObj: new Date().getTime()
+            },
+            dater2:{
+                tplChars: 'Y-m-d H:i:s 周 w, 一年中的 第 W 周 ',
+                dateObj: new Date().getTime()
+            },
+            daters: [
+                'new Date()',
+                '2018-01-01',
+                '2020-01-07',
+                '2020-01-24',
+                '2020-05-12',
+                '2020-09-12',
+                '2021-09-13',
+                '2020-10-24',
+                '2019-12-24 20:23:52',
+            ],
+            chars: [
+                'Y-m-d fh - lh',
+                'Y-m-d H:i:s lq lQ q Q n',
+                'Y-m-d 第W周 lq lQ q Q n',
+                'Y-m-d 周w lg lG',
+                '公历(阳历)：C(Y)年f月k日 星期K',
+                '农历(阴历)：lC(lc)年lm月ld lt时lk刻',
+                'ly年lf月lj日 生肖lz lS ls',
+                'lj lf ly lc lC lz lZ la lM',
+                'o-m-d H:i:s.v',
+            ]
+        },
+        created: function () {
+            this.init()
+        },
+        computed: {
+            fDater1: function () {
+                return date(this.dater1.tplChars, this.dater1.dateObj);
+            },
+            fDater2: function () {
+                return date(this.dater2.tplChars, this.dater2.dateObj);
+            },
+        },
+        methods: {
+            init: function(){
+                date.editHolidayConf = {
+                  '*1213': ['作者生日', `Author's birthday`]
+                }
+
+                this.clocker();
+            },
+            clocker: function () {
+                var nowClock = document.getElementsByClassName('date-time');
+                setInterval(() => {
+                    for (let i = 0; i < nowClock.length; i += 1) {
+                        nowClock[i].innerHTML = date('Y-m-d H:i:s.v');
+                    }
+                }, 1000);
+            }
+        },
+    });
+</script>
 <script type="text/javascript">
-  document.write(unescape("%3Cspan  style='display:none;' id='cnzz_stat_icon_1278679500'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/stat.php%3Fid%3D1278679500%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    //document.write(unescape("%3Cspan  style='display:none;' id='cnzz_stat_icon_1278679500'%3E%3C/span%3E%3Cscript src='https://s9.cnzz.com/stat.php%3Fid%3D1278679500%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
 
 </script>
 </body>
