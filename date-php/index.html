@@ -91,6 +91,13 @@
         .table #now-time tr td {
             background-color:#eeeeff;
         }
+        .tips{
+            color: #ddd;
+            font-size: 12px;
+        }
+        .tips:after{
+            content:":"
+        }
         
         .date-input {
             outline:none;
@@ -103,6 +110,10 @@
             /*opacity: 0;*/
             /*width: 100px;*/
         }
+        .date-input-def{
+            color: #ccc;
+            width: 3em;
+        }
         
         .date-input:focus {
             border-bottom:2px solid #666;
@@ -113,19 +124,50 @@
 <div class="main">
     <div class="date-editer" id="date-editer">
         <div>
-            date(<input type="text" class="date-input" v-model="dater1.tplChars" />,
-            <input type="text" class="date-input" v-model="dater1.dateObj"></span>)
+            date(
+            <span class="tips">tplChars</span><input type="text" class="date-input" v-model="dater1.tplChars" />,
+            <span class="tips">dateObj</span><input type="text" class="date-input" v-model="dater1.dateObj"></span>,
+            <span class="tips">isMs</span><input type="text" class="date-input date-input-def" v-model="dater1.isMs"></span>
+            )
             <span v-text="fDater1"></span>
         </div>
         <div>
-            date(<input type="text" class="date-input" v-model="dater2.tplChars" />,
-            <input type="text" class="date-input" v-model="dater2.dateObj"></span>)
+            date(
+            <span class="tips">tplChars</span><input type="text" class="date-input" v-model="dater2.tplChars" />,
+            <span class="tips">dateObj</span><input type="text" class="date-input" v-model="dater2.dateObj"></span>,
+            <span class="tips">isMs</span><input type="text" class="date-input date-input-def" v-model="dater2.isMs"></span>
+            )
             <span v-text="fDater2"></span>
         </div>
         <div>
-            date(<input type="text" class="date-input" v-model="dater3.tplChars" />,
-            <input type="text" class="date-input" v-model="dater3.dateObj"></span>)
+            date(
+            <span class="tips">tplChars</span><input type="text" class="date-input" v-model="dater3.tplChars" />,
+            <span class="tips">dateObj</span><input type="text" class="date-input" v-model="dater3.dateObj"></span>
+            )
             <span v-text="fDater3"></span>
+        </div>
+        <div>
+            date.duration(
+            <span class="tips">tplChars</span><input type="text" class="date-input" v-model="duration1.tplChars" />,
+            <span class="tips">dateObj</span><input type="text" class="date-input" v-model="duration1.timestamp"></span>,
+            <span class="tips">isMs</span><input type="text" class="date-input date-input-def" v-model="duration1.isMs"></span>
+            )
+            <span v-text="fDuration1"></span>
+        </div>
+        <div>
+            date.duration(
+            <span class="tips">tplChars</span><input type="text" class="date-input" v-model="duration2.tplChars" />,
+            <span class="tips">dateObj</span><input type="text" class="date-input" v-model="duration2.timestamp"></span>
+            )
+            <span v-text="fDuration2"></span>
+        </div>
+        <div>
+            date.duration(
+            <span class="tips">tplChars</span><input type="text" class="date-input" v-model="duration3.tplChars" />,
+            <span class="tips">dateObj</span><input type="text" class="date-input" v-model="duration3.timestamp"></span>,
+            <span class="tips">isMs</span><input type="text" class="date-input date-input-def" v-model="duration3.isMs"></span>
+            )
+            <span v-text="fDuration2"></span>
         </div>
     </div>
     
@@ -181,15 +223,31 @@
             // date,
             dater1:{
                 tplChars: 'Y-m-d',
-                dateObj: new Date().getTime()
+                dateObj: new Date().getTime(),
+                isMs: true
             },
             dater2:{
                 tplChars: 'Y-m-d H:i:s 周 w, 一年中的 第 W 周 ',
-                dateObj: new Date().getTime()
+                dateObj: new Date().getTime(),
+                isMs: false
             },
             dater3:{
                 tplChars: '\\I \\l\\o\\v\\e \\y\\o\\u',
                 dateObj: new Date().getTime()
+            },
+            duration1: {
+                tplChars: 'd天 h小时i分种',
+                timestamp: 86400000*1.2345,
+                isMs: true
+            },
+            duration2: {
+                tplChars: 'H小时i分种',
+                timestamp: 86400000*1.2345
+            },
+            duration3: {
+                tplChars: 'H小时i分种',
+                timestamp: parseInt(86400000*1.2345*.001),
+                isMs: false
             },
             daters: [
                 'new Date()',
@@ -219,14 +277,23 @@
         },
         computed: {
             fDater1: function () {
-                return date(this.dater1.tplChars, this.dater1.dateObj);
+                return date(this.dater1.tplChars, this.dater1.dateObj, this.dater1.isMs);
             },
             fDater2: function () {
-                return date(this.dater2.tplChars, this.dater2.dateObj);
+                return date(this.dater2.tplChars, this.dater2.dateObj, this.dater2.isMs);
             },
             fDater3: function () {
-                return date(this.dater3.tplChars, this.dater3.dateObj);
+                return date(this.dater3.tplChars, this.dater3.dateObj, this.dater3.isMs);
             },
+            fDuration1: function(){
+                return date.duration(this.duration1.tplChars, this.duration1.timestamp, this.duration1.isMs)
+            },
+            fDuration2: function(){
+                return date.duration(this.duration2.tplChars, this.duration2.timestamp)
+            },
+            fDuration3: function(){
+                return date.duration(this.duration3.tplChars, this.duration3.timestamp, this.duration2.isMs)
+            }
         },
         methods: {
             init: function(){
