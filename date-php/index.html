@@ -128,9 +128,11 @@
             /*opacity: 0;*/
             /*width: 100px;*/
         }
-        .date-input::placeholder{
-            color: #ddd;
+        
+        .date-input::placeholder {
+            color:#ddd;
         }
+        
         .date-input:focus + * {
             color:#666;
         }
@@ -142,6 +144,29 @@
         
         .date-input:focus {
             border-bottom:2px solid #666;
+        }
+        
+        .fixed-btns {
+            position:fixed;
+            bottom:2em;
+            /*left:50%;*/
+            /*margin-left:480px;*/
+            right: 1em;
+            width:180px;
+            opacity:.2;
+        }
+        
+        .fixed-btns:hover {
+            opacity:.8;
+        }
+        
+        .back {
+        }
+        
+        .github {
+        }
+        
+        .npm {
         }
     </style>
 </head>
@@ -159,7 +184,7 @@
                 <span class="dateObj"></span>
             </span>,
             <span class="tips">
-                <input type="text" class="date-input date-input-def" v-model="dater1.isMs" placeholder="true" />
+                <input type="text" class="date-input date-input-def" v-model="dater1.isMs" placeholder="true"/>
                 <span class="isMs"></span>
             </span>
             )
@@ -176,7 +201,7 @@
                 <span class="dateObj"></span>
             </span>,
             <span class="tips">
-                <input type="text" class="date-input date-input-def" v-model="dater2.isMs" placeholder="true" />
+                <input type="text" class="date-input date-input-def" v-model="dater2.isMs" placeholder="true"/>
                 <span class="isMs"></span>
             </span>
             )
@@ -206,7 +231,7 @@
                 <span class="dateObj"></span>
             </span>,
             <span class="tips">
-                <input type="text" class="date-input date-input-def" v-model="duration1.isMs" placeholder="true" />
+                <input type="text" class="date-input date-input-def" v-model="duration1.isMs" placeholder="true"/>
                 <span class="isMs"></span>
             </span>
             )
@@ -292,6 +317,20 @@
         </template>
         </tbody>
     </table>
+    
+    <div class="fixed-btns">
+        <a href="https://github.com/toviLau/date-php" class="back github">
+            <img
+                src="https://img.shields.io/github/package-json/v/tovilau/date-php?label=%E8%BF%94%E5%9B%9E%20Github&logo=github"
+                height="25"
+                alt="返回 Github">
+        </a>
+        <a href="https://www.npmjs.com/package/date-php" class="back npm">
+            <img src="https://img.shields.io/npm/v/date-php?label=%E8%BF%94%E5%9B%9E%20NPM&logo=npm"
+                 height="25"
+                 alt="返回 Npm">
+        </a>
+    </div>
 </div>
 <script>
     new Vue({
