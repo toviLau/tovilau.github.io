@@ -344,7 +344,7 @@
             },
             dater2: {
                 tplChars: 'Y-m-d H:i:s 周 w, 一年中的 第 W 周 ',
-                dateObj: new Date().getTime(),
+                dateObj: parseInt(new Date().getTime()*.001),
                 isMs: false,
             },
             dater3: {
