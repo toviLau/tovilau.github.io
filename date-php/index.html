@@ -6,37 +6,40 @@
     <script src="./date.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script>
     <style>
-        html, body, .main{
-            height: 100%;
+        html, body, .main {
+            height:100%;
         }
-        .main{
+        
+        .main {
             width:1260px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
+            margin:0 auto;
+            display:flex;
+            flex-direction:column;
         }
+        
         .date-editer {
             font-size:22px;
             line-height:2em;
-            padding: 1.6em 1em;
-            border: 1px solid #ccc;
+            padding:1.6em 1em;
+            border:1px solid #ccc;
             position:relative;
-            margin: 1em auto;
-            width: 100%;
+            margin:1em auto;
+            width:100%;
             box-sizing:border-box;
         }
-        .date-editer:before{
+        
+        .date-editer:before {
             content:'试一试(try)';
             position:absolute;
-            top: -1em;
-            left: 2em;
-            padding: 0 .5em;
-            background-color: #fff;
+            top:-1em;
+            left:2em;
+            padding:0 .5em;
+            background-color:#fff;
         }
         
         .table {
-            flex: 1;
-            overflow: auto;
+            flex:1;
+            overflow:auto;
             border-right:1px solid #ccc;
             border-bottom:1px solid #ccc;
             font-size:12px;
@@ -91,12 +94,27 @@
         .table #now-time tr td {
             background-color:#eeeeff;
         }
-        .tips{
-            color: #ddd;
-            font-size: 12px;
+        
+        .tips {
+            color:#ddd;
+            font-size:12px;
+            display:inline-block;
         }
-        .tips:after{
-            content:":"
+        
+        .tplChars, .dateObj, .isMs {
+            float:left;
+        }
+        
+        .tplChars:after {
+            content:"tplChars?:";
+        }
+        
+        .dateObj:after {
+            content:"dateObj?:";
+        }
+        
+        .isMs:after {
+            content:"isMs?:";
         }
         
         .date-input {
@@ -104,15 +122,20 @@
             border:none;
             border-bottom:1px dashed #999;
             font-size:18px;
-            display: inline;
+            display:inline;
             /*margin: 0 .5em;*/
             /*background:transparent;*/
             /*opacity: 0;*/
             /*width: 100px;*/
         }
-        .date-input-def{
-            color: #ccc;
-            width: 3em;
+        
+        .date-input:focus + * {
+            color:#666;
+        }
+        
+        .date-input-def {
+            /*color: #ccc;*/
+            width:3em;
         }
         
         .date-input:focus {
@@ -125,49 +148,65 @@
     <div class="date-editer" id="date-editer">
         <div>
             date(
-            <span class="tips">tplChars</span><input type="text" class="date-input" v-model="dater1.tplChars" />,
-            <span class="tips">dateObj</span><input type="text" class="date-input" v-model="dater1.dateObj"></span>,
-            <span class="tips">isMs</span><input type="text" class="date-input date-input-def" v-model="dater1.isMs"></span>
+            <span class="tips"><input type="text" class="date-input" v-model="dater1.tplChars"/><span
+                class="tplChars"></span></span>,
+            <span class="tips"><input type="text" class="date-input" v-model="dater1.dateObj"/><span
+                class="dateObj"></span></span>,
+            <span class="tips"><input type="text" class="date-input date-input-def" v-model="dater1.isMs"/><span
+                class="isMs"></span></span>
             )
             <span v-text="fDater1"></span>
         </div>
         <div>
             date(
-            <span class="tips">tplChars</span><input type="text" class="date-input" v-model="dater2.tplChars" />,
-            <span class="tips">dateObj</span><input type="text" class="date-input" v-model="dater2.dateObj"></span>,
-            <span class="tips">isMs</span><input type="text" class="date-input date-input-def" v-model="dater2.isMs"></span>
+            <span class="tips"><input type="text" class="date-input" v-model="dater2.tplChars"/><span
+                class="tplChars"></span></span>,
+            <span class="tips"><input type="text" class="date-input" v-model="dater2.dateObj"><span
+                class="dateObj"></span></span>,
+            <span class="tips"><input type="text" class="date-input date-input-def" v-model="dater2.isMs"><span
+                class="isMs"></span></span>
             )
             <span v-text="fDater2"></span>
         </div>
         <div>
             date(
-            <span class="tips">tplChars</span><input type="text" class="date-input" v-model="dater3.tplChars" />,
-            <span class="tips">dateObj</span><input type="text" class="date-input" v-model="dater3.dateObj"></span>
+            <span class="tips"><input type="text" class="date-input" v-model="dater3.tplChars"/><span
+                class="tplChars"></span></span>,
+            <span class="tips"><input type="text" class="date-input" v-model="dater3.dateObj"><span
+                class="dateObj"></span></span>
             )
             <span v-text="fDater3"></span>
         </div>
         <div>
             date.duration(
-            <span class="tips">tplChars</span><input type="text" class="date-input" v-model="duration1.tplChars" />,
-            <span class="tips">dateObj</span><input type="text" class="date-input" v-model="duration1.timestamp"></span>,
-            <span class="tips">isMs</span><input type="text" class="date-input date-input-def" v-model="duration1.isMs"></span>
+            <span class="tips"><input type="text" class="date-input" v-model="duration1.tplChars"/><span
+                class="tplChars"></span></span>,
+            <span class="tips"><input type="text" class="date-input" v-model="duration1.timestamp"><span
+                class="dateObj"></span></span>,
+            <span class="tips"><input type="text" class="date-input date-input-def" v-model="duration1.isMs"><span
+                class="isMs"></span></span>
             )
             <span v-text="fDuration1"></span>
         </div>
         <div>
             date.duration(
-            <span class="tips">tplChars</span><input type="text" class="date-input" v-model="duration2.tplChars" />,
-            <span class="tips">dateObj</span><input type="text" class="date-input" v-model="duration2.timestamp"></span>
+            <span class="tips"><input type="text" class="date-input" v-model="duration2.tplChars"/><span
+                class="tplChars"></span></span>,
+            <span class="tips"><input type="text" class="date-input" v-model="duration2.timestamp"><span
+                class="dateObj"></span></span>
             )
             <span v-text="fDuration2"></span>
         </div>
         <div>
             date.duration(
-            <span class="tips">tplChars</span><input type="text" class="date-input" v-model="duration3.tplChars" />,
-            <span class="tips">dateObj</span><input type="text" class="date-input" v-model="duration3.timestamp"></span>,
-            <span class="tips">isMs</span><input type="text" class="date-input date-input-def" v-model="duration3.isMs"></span>
+            <span class="tips"><input type="text" class="date-input" v-model="duration3.tplChars"/><span
+                class="tplChars"></span></span>,
+            <span class="tips"><input type="text" class="date-input" v-model="duration3.timestamp"><span
+                class="dateObj"></span></span>,
+            <span class="tips"><input type="text" class="date-input date-input-def" v-model="duration3.isMs"><span
+                class="isMs"></span></span>
             )
-            <span v-text="fDuration2"></span>
+            <span v-text="fDuration3"></span>
         </div>
     </div>
     
@@ -202,14 +241,18 @@
                     <!--<input type="text" class="date-input date-object" v-model="cItem"/>-->
                 </td>
                 <td>
-                    <div class="block">date("<span class="date-params" v-text="item"></span>", <span class="date-object" v-text="cItem"></span>)
+                    <div class="block">date("<span class="date-params" v-text="item"></span>", <span class="date-object"
+                                                                                                     v-text="cItem"></span>)
                     </div>
-                    <div class="block">new Date("<span class="date-object" v-text="cItem"></span>").format("<span class="date-params" v-text="item"></span>")
+                    <div class="block">new Date("<span class="date-object" v-text="cItem"></span>").format("<span
+                        class="date-params" v-text="item"></span>")
                     </div>
                 </td>
                 <td>
-                    <div class="block" v-text="date(item, new Date(new Date(cItem).valueOf() ? cItem : eval(cItem)))"></div>
-                    <div class="block" v-text="new Date(new Date(cItem).valueOf() ? cItem : eval(cItem)).format(item)"></div>
+                    <div class="block"
+                         v-text="date(item, new Date(new Date(cItem).valueOf() ? cItem : eval(cItem)))"></div>
+                    <div class="block"
+                         v-text="new Date(new Date(cItem).valueOf() ? cItem : eval(cItem)).format(item)"></div>
                 </td>
             </tr>
         </template>
@@ -221,33 +264,33 @@
         el: '.main',
         data: {
             // date,
-            dater1:{
+            dater1: {
                 tplChars: 'Y-m-d',
                 dateObj: new Date().getTime(),
-                isMs: true
+                isMs: true,
             },
-            dater2:{
+            dater2: {
                 tplChars: 'Y-m-d H:i:s 周 w, 一年中的 第 W 周 ',
                 dateObj: new Date().getTime(),
-                isMs: false
+                isMs: false,
             },
-            dater3:{
+            dater3: {
                 tplChars: '\\I \\l\\o\\v\\e \\y\\o\\u',
-                dateObj: new Date().getTime()
+                dateObj: new Date().getTime(),
             },
             duration1: {
                 tplChars: 'd天 h小时i分种',
-                timestamp: 86400000*1.2345,
-                isMs: true
+                timestamp: 86400000 * 1.2345,
+                isMs: true,
             },
             duration2: {
                 tplChars: 'H小时i分种',
-                timestamp: 86400000*1.2345
+                timestamp: 86400000 * 1.2345,
             },
             duration3: {
                 tplChars: 'H小时i分种',
-                timestamp: parseInt(86400000*1.2345*.001),
-                isMs: false
+                timestamp: parseInt(86400000 * 1.2345 * .001),
+                isMs: false,
             },
             daters: [
                 'new Date()',
@@ -270,36 +313,57 @@
                 'ly年lf月lj日 生肖lz lS ls',
                 'lj lf ly lc lC lz lZ la lM',
                 'o-m-d H:i:s.v',
-            ]
+            ],
         },
         created: function () {
-            this.init()
+            this.init();
         },
         computed: {
             fDater1: function () {
-                return date(this.dater1.tplChars, this.dater1.dateObj, this.dater1.isMs);
+                const dateObj = this.dater1.dateObj === ''
+                  ? Date.now()
+                  : !isNaN(this.dater1.dateObj)
+                    ? parseInt(this.dater1.dateObj)
+                    : this.dater1.dateObj;
+                const isMs = !(this.dater1.isMs === 'false' || this.dater1.isMs === false);
+
+                return date(this.dater1.tplChars || 'Y-m-d', dateObj, isMs);
             },
             fDater2: function () {
-                return date(this.dater2.tplChars, this.dater2.dateObj, this.dater2.isMs);
+                const dateObj = this.dater2.dateObj === ''
+                  ? Date.now()
+                  : !isNaN(this.dater2.dateObj)
+                    ? parseInt(this.dater2.dateObj)
+                    : this.dater2.dateObj;
+                const isMs = !(this.dater2.isMs === 'false' || this.dater2.isMs === false);
+
+                return date(this.dater2.tplChars || 'Y-m-d', dateObj, isMs);
             },
             fDater3: function () {
-                return date(this.dater3.tplChars, this.dater3.dateObj, this.dater3.isMs);
+                const dateObj = this.dater3.dateObj === ''
+                  ? Date.now()
+                  : !isNaN(this.dater3.dateObj)
+                    ? parseInt(this.dater3.dateObj)
+                    : this.dater3.dateObj;
+                const isMs = !(this.dater3.isMs === 'false' || this.dater3.isMs === false);
+
+                return date(this.dater3.tplChars || 'Y-m-d', dateObj, isMs);
             },
-            fDuration1: function(){
-                return date.duration(this.duration1.tplChars, this.duration1.timestamp, this.duration1.isMs)
+            fDuration1: function () {
+                return date.duration(this.duration1.tplChars || 'D天h:i:s', !!(this.duration1.timestamp - 0) ? this.duration1.timestamp - 0 : this.duration1.timestamp, this.duration1.isMs === 'false' || this.duration1.isMs === false ? false : true);
             },
-            fDuration2: function(){
-                return date.duration(this.duration2.tplChars, this.duration2.timestamp)
+            fDuration2: function () {
+                return date.duration(this.duration2.tplChars || 'D天h:i:s', !!(this.duration2.timestamp - 0) ? this.duration2.timestamp - 0 : this.duration2.timestamp);
             },
-            fDuration3: function(){
-                return date.duration(this.duration3.tplChars, this.duration3.timestamp, this.duration2.isMs)
-            }
+            fDuration3: function () {
+                return date.duration(this.duration3.tplChars || 'D天h:i:s', !!(this.duration3.timestamp - 0) ? this.duration3.timestamp - 0 : this.duration3.timestamp, this.duration3.isMs === 'false' || this.duration3.isMs === false ? false : true);
+            },
         },
         methods: {
-            init: function(){
+            init: function () {
                 date.editHolidayConf = {
-                  '*1213': ['作者生日', `Author's birthday`]
-                }
+                    '*1213': ['作者生日', `Author's birthday`],
+                };
 
                 this.clocker();
             },
@@ -310,7 +374,7 @@
                         nowClock[i].innerHTML = date('Y-m-d H:i:s.v');
                     }
                 }, 1000);
-            }
+            },
         },
     });
 </script>
