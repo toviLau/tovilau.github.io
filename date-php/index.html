@@ -159,7 +159,16 @@
         .fixed-btns:hover {
             opacity:.8;
         }
-        
+        .date-config{
+            resize: none;
+            width:100%;
+            height: 150px;
+            border:none;
+            background-color: #333;
+            color: #ccc;
+            box-sizing:border-box;
+            padding: 1em;
+        }
         .back {
         }
         
@@ -168,11 +177,40 @@
         
         .npm {
         }
+        .holiday-conf{
+            border: 1px dashed #ccc;
+        }
+        .holiday-conf-area textarea{
+            width: 100%;
+            outline: none;
+            /*border: 1px dotted #ccc;*/
+            border-radius: 6px;
+            resize: none;
+            padding: .5em;
+            height: 150px;
+            background-color: #333;
+            color: #99cc99;
+        }
+        .holiday-conf-area textarea:focus{
+            color: #33cc33;
+        }
     </style>
 </head>
 <body>
 <div class="main">
     <div class="date-editer" id="date-editer">
+        <!--<div>
+            <textarea class="date-config" v-text="editHolidayConf"></textarea>
+        </div>-->
+        <!--<fieldset class="holiday-conf">
+            <legend>节假日配置(holiday config)</legend>
+            <label><input name="holiday-conf" type="radio" v-model="holidayConf.type" value="1"/> date.editHolidayConf </label>
+            <label><input name="holiday-conf" type="radio" v-model="holidayConf.type" value="2"/> date.replaceHolidayConf </label>
+            <div class="holiday-conf-area">
+                <textarea name="holiday-conf" id="holidayConf" cols="30" rows="10" v-model="holidayConf.conf"></textarea>
+            </div>
+        </fieldset>-->
+
         <div>
             date(
             <span class="tips">
@@ -337,6 +375,21 @@
         el: '.main',
         data: {
             // date,
+            // editHolidayConf: 'date.editHolidayConf = {\n' +
+            //   `    '0214': ['小三节', 'Other woman day'], // 修改(edit)\n` +
+            //   `    '0715': ['示例节', 'Demo\'s day'], // 修改(edit)\n` +
+            //   `    '#0836': ['纪念日', 'Anniversary day'], // 新增(add)\n` +
+            //   `    '*1213': ['作者生日', 'Author\'s birthday'] // 新增(add)\n` +
+            //   `}`,
+            holidayConf: {
+                type: '1',
+                conf: `{
+    '0214': ['小三节', 'Other woman day'], // 修改(edit)
+    '0715': ['示例节', \`Demo's day\`], // 修改(edit)
+    '#0836': ['纪念日', 'Acommemoration day'], // 新增(add)
+    '*1213': ['作者生日', \`Author's birthday\`] // 新增(add)
+}`
+            },
             dater1: {
                 tplChars: 'Y-m-d',
                 dateObj: new Date().getTime(),
@@ -367,6 +420,7 @@
             },
             daters: [
                 'new Date()',
+                new Date()-0,
                 '2018-01-01',
                 '2020-01-07',
                 '2020-01-24',
@@ -390,6 +444,11 @@
         },
         created: function () {
             this.init();
+        },
+        watch:{
+            // editHolidayConf: function (val) {
+            //     eval(val)
+            // }
         },
         computed: {
             fDater1: function () {
@@ -451,8 +510,8 @@
         },
     });
 </script>
-<script type="text/javascript">
-    document.write(unescape('%3Cspan  style=\'display:none;\' id=\'cnzz_stat_icon_1278679500\'%3E%3C/span%3E%3Cscript src=\'https://s9.cnzz.com/stat.php%3Fid%3D1278679500%26show%3Dpic1\' type=\'text/javascript\'%3E%3C/script%3E'));
-</script>
+
+<script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+<script>LA.init({id:"LFBFrH8ueyH6Iy38",ck:"LFBFrH8ueyH6Iy38",autoTrack:true,hashMode:true,screenRecord:true})</script>
 </body>
 </html>
