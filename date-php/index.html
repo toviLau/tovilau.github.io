@@ -259,6 +259,19 @@
             <span v-text="fDater3"></span>
         </div>
         <div>
+            date(
+            <span class="tips">
+                <input type="text" class="date-input" placeholder="Y-m-d" v-model="dater4.tplChars"/>
+                <span class="tplChars"></span>
+            </span>,
+            <span class="tips">
+                <input type="text" class="date-input" :placeholder="Date.now()" v-model="dater4.dateObj">
+                <span class="dateObj"></span>
+            </span>
+            )
+            <span v-text="fDater4"></span>
+        </div>
+        <div>
             date.duration(
             <span class="tips">
                 <input type="text" class="date-input" placeholder="D天h:i:s" v-model="duration1.tplChars"/>
@@ -404,6 +417,10 @@
                 tplChars: '\\I \\l\\o\\v\\e \\y\\o\\u',
                 dateObj: new Date().getTime(),
             },
+            dater4: {
+                tplChars: 'H:i:s R',
+                dateObj: new Date().getTime()+15000,
+            },
             duration1: {
                 tplChars: 'd天 h小时i分种',
                 timestamp: 86400000 * 1.2345,
@@ -480,6 +497,16 @@
                 const isMs = !(this.dater3.isMs === 'false' || this.dater3.isMs === false);
 
                 return date(this.dater3.tplChars || 'Y-m-d', dateObj, isMs);
+            },
+            fDater4: function () {
+                const dateObj = this.dater4.dateObj === ''
+                  ? Date.now()
+                  : !isNaN(this.dater4.dateObj)
+                    ? parseInt(this.dater4.dateObj)
+                    : this.dater4.dateObj;
+                const isMs = !(this.dater4.isMs === 'false' || this.dater4.isMs === false);
+
+                return date(this.dater4.tplChars || 'H:i:s R', dateObj, isMs);
             },
             fDuration1: function () {
                 return date.duration(this.duration1.tplChars || 'D天h:i:s', !isNaN(this.duration1.timestamp - 0) ? this.duration1.timestamp - 0 : this.duration1.timestamp, this.duration1.isMs === 'false' || this.duration1.isMs === false ? false : true);
